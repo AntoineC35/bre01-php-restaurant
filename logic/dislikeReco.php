@@ -6,5 +6,5 @@ $parameters = [
     "user_id" => $_POST["user_id"]
     ];
 $query->execute($parameters);
-header("Location: ../index.php?route=list_resto");
+header("Location: ../index.php?route=recommanded");
 ?> 

@@ -1,4 +1,160 @@
+/*
+#072534 bleu
+#f8eace beige
+#bf9c79 marron clair
+#aab6ae bleu clair
+*/
+
+
+.container {
+    background-color: #f8eace;
+    padding: 20px;
+    max-width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1 {
+	font-size: 4rem;
+    color: #072534;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+button[type="submit"] {
+    background-color: #bf9c79;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #aab6ae;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+fieldset {
+    margin: 0; padding: 0; border: 0;
+}
+/*-------------------------------------------------------------
+
+                         style.css
+                         
+-------------------------------------------------------------*/
 a img {
     width: 200px;
     height: 200px;
+    animation: myAnim 2s ease 0s 1 normal forwards;
+    
 }
+
+* {
+	box-sizing: border-box; /* On spécifie que la largeur (width) de chaque boîte comprend le padding et la bordure (par défaut, c'est seulement la largeur du contenu) */
+}
+
+html {
+	font-size: 62.5%; /* 1rem = 10px (la formule est 10/16*100) la taille par défaut étant 16px */
+}
+
+body {
+	font-size: 1.6rem; /* on remets la taille du texte par défaut pour le body à 16px en utilisant les rem comme unité) */
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+	font-family: sans-serif;
+	color: #555;
+	background-color: #f8eace;
+	display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr; 
+}
+main {
+	padding: 2em;
+}
+
+header {
+	padding: 1em;
+	text-align: center;
+	color: #999;
+	background-color: #f8eace;
+	
+
+}
+
+@keyframes myAnim {
+	0% {
+		transform: scale(0.5);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5em;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #072534;
+    width: 100%;
+}
+
+.restaurants{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 2rem;
+    background-color: #f8eace;
+    color: #072534;
+    padding: 2em;
+}
+
+.restaurants img{
+    width: 90%;
+}
+
+
+
+.btn{
+     border-radius: 1rem;
+     padding: 0.5em;
+     background-color: #072534;
+     color: #f8eace;
+     cursor: pointer;
+}
+
+
+.fa-regular {
+    font-size: 3rem;
+}
+
+
+
+
+
+ 

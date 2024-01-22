@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Favorite Restaurant</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body class="container-fluid">
-        <header>
-            <a><img src="assets/logo.jpeg"/></a>
-        </header>
+<head>
+    <meta charset="utf-8" />
+    <title>Favorite Restaurant</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/8515b8c0c2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <a href="index.php"><img src="assets/logo.jpeg"/></a>
+        <?php 
+        session_start();
 
+        if (isset($_SESSION["id"])) { ?>
+            <nav>
+                <a class="btn" href="config/logout.php">Deconnexion</a>
+                <a class="btn" href="templates/recommanded.phtml">Mes Recos</a>
+            </nav>
+        <?php } ?>
+    </header>
+<main class="container">
     <?php
-    session_start(); 
-
-    if($route === "connexion")
-    {
+    if ($route === "connexion") {
         require "templates/connexion.phtml";
-    }
-    else if($route === "inscription")
-    {
+    } elseif ($route === "inscription") {
         require "templates/inscription.phtml";
-    }
-    else if($route === "recommanded")
-    {
+    } elseif ($route === "recommanded") {
         require "templates/recommanded.phtml";
-    }
-    else if($route === "list_resto" || isset($_SESSION["email"]))
-    {
+    } elseif ($route === "list_resto" || isset($_SESSION["email"])) {
         require "templates/list_resto.phtml";
-    }
-    else
-    {
+    } else {
         require "templates/connexion.phtml";
     }
-
     ?>
-    </body>
+    </main>
+</body>
 </html>

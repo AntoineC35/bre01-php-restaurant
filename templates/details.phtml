@@ -1,0 +1,20 @@
+<?php 
+    require "../config/connexion.php";
+    $query = $db->prepare("SELECT * FROM restaurants WHERE id = :id");
+    $parameters = [
+        "id" => $_POST["restaurant_id"]
+        ];
+    $query->execute($parameters);
+    $restaurant = $query->fetch(PDO::FETCH_ASSOC);
+?>
+
+ <h3><?= $restaurant["name"] ?></h3>
+        <p><?= $restaurant["categorie"] ?></p>
+        <p><?= $restaurant["location"] ?></p>
+        <img src="<?= $restaurant["photo"] ?>" alt="photo <?= $restaurant["name"] ?>" />
+        <p><?= $restaurant["description"]?></p>
+        <p><?= $restaurant["location"]?></p>
+        
+        <a href="../index.php?route=list_resto">Revenir à l'accueil</a>
+
+    

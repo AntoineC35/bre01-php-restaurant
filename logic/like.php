@@ -8,6 +8,6 @@ $parameters = [
     ];
 $query->execute($parameters);
 
-header("Location : ../index.php?route=list_resto");
+header("Location: ../index.php?route=list_resto");
 
 ?> 

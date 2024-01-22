@@ -1,20 +1,31 @@
 <?php 
-
+session_start();
+require "../config/connexion.php";
 $query = $db->prepare("SELECT * FROM restaurants 
-                        JOIN recommanded ON id = restaurant_id 
-                        JOIN users ON id = user_id WHERE user_id = :id");
+                        JOIN recommanded ON restaurants.id = recommanded.restaurant_id 
+                        JOIN users ON users.id = recommanded.user_id WHERE users.id = :id");
 $parameters = [ 'id' => $_SESSION["id"] ];
 $query->execute($parameters);
 $recommanded = $query->fetchAll(PDO::FETCH_ASSOC);
-var_dump($recommanded);
 ?>
 
+<link rel="stylesheet" href="../style.css" type="text/css" />
+<script src="https://kit.fontawesome.com/8515b8c0c2.js" crossorigin="anonymous"></script>
 <?php foreach($recommanded as $recommand){ ?>
-    <article>
+    <article class="restaurants">
         <h3><?= $recommand["name"] ?></h3>
         <p> <?= $recommand["categorie"] ?></p>
+        <p> <?= $recommand["description"] ?></p>
         <p> <?= $recommand["location"] ?> </p>
         <img src=" <?= $recommand["photo"] ?> " alt="photo <?= $recommand["name"] ?>"/>
-        <button type=submit> Détail </button>
+        <form action='details.phtml' method="POST">
+                <input type='hidden' id="restaurant_id" name="restaurant_id" value=<?= $recommand['restaurant_id'] ?>>
+                <button class="btn">En savoir plus</button>
+            </form>
+         <form action='logic/dislikeReco.php' method="POST">
+                <input type='hidden' id="user_id" name="user_id" value='<?= $_SESSION['id'] ?>'>
+                <input type='hidden' id="restaurant_id" name="restaurant_id" value=<?= $recommand['restaurant_id'] ?>>
+                <button class="btn"><i class="fa-regular fa-thumbs-down"></i></button>
+            </form>
     </article>
 <?php } ?>

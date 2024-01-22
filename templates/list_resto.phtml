@@ -13,48 +13,50 @@ $query = $db->prepare("SELECT * FROM restaurants
 $parameters = [ 'id' => $_SESSION["id"] ];
 $query->execute($parameters);
 $recommanded = $query->fetchAll(PDO::FETCH_ASSOC);
-var_dump($recommanded);
 ?>
-
-<?php foreach($listResto as $list){ ?>
-    <article>
-        <h3><?= $list["name"] ?></h3>
-        <p> <?= $list["categorie"] ?></p>
-        <p> <?= $list["location"] ?> </p>
-        <img src=" <?= $list["photo"] ?> " alt="photo <?= $list["name"] ?>"/>
-        <?php 
-        if ($recommanded) {
-        foreach($recommanded as $recommand){
-            if($list["id"] === $recommand['restaurant_id']) {
-            ?>
-                 <form action='logic/dislike.php' method="POST">
-                    <input type='hidden' id="user_id" name="user_id" value='<?= $_SESSION['id']?>'>
-                    <input type='hidden' id= "restaurant_id" name="restaurant_id" value=<?= $list['id']?>> 
-                    <button>Dislike</button>
-                    </form>
-            <?php
-            } else {
-                 ?>
-                 <form action='logic/like.php' method="POST">
-                    <input type='hidden' id="user_id" name="user_id" value='<?= $_SESSION['id']?>'>
-                    <input type='hidden' id= "restaurant_id" name="restaurant_id" value=<?= $list['id']?>> 
-                    <button>Like</button>
-                    </form>
-            <?php
+<?php
+if (isset($_SESSION["id"])) {
+    foreach ($listResto as $list) { ?>
+        <article class="restaurants">
+            <h3><?= $list["name"] ?></h3>
+            <p><?= $list["categorie"] ?></p>
+            <p><?= $list["location"] ?></p>
+            <img src="<?= $list["photo"] ?>" alt="photo <?= $list["name"] ?>" />
+            
+            <?php 
+            $isRecommended = false;
+            
+            if ($recommanded) {
+                foreach ($recommanded as $recommand) {
+                    if ($list["id"] === $recommand['restaurant_id']) {
+                        $isRecommended = true;
+                        break;
+                    }
+                }
             }
-        }
-        } else {
-            ?>
-            <form action='logic/like.php' method="POST">
-                    <input type='hidden' id="user_id" name="user_id" value='<?= $_SESSION['id']?>'>
-                    <input type='hidden' id= "restaurant_id" name="restaurant_id" value=<?= $list['id']?>> 
-                    <button>Like quand y'a Rien dans la liste</button>
-                    </form>
-            <?php
-        }
-        ?>
-        <button type=submit> Détail </button>
-    </article>
-    <?php
+            
+            if ($isRecommended) { ?>
+                <form action='logic/dislike.php' method="POST">
+                    <input type='hidden' id="user_id" name="user_id" value='<?= $_SESSION['id'] ?>'>
+                    <input type='hidden' id="restaurant_id" name="restaurant_id" value=<?= $list['id'] ?>>
+                    <button class="btn"><i class="fa-regular fa-thumbs-down"></i></button>
+                </form>
+            <?php } else { ?>
+                <form action='logic/like.php' method="POST">
+                    <input type='hidden' id="user_id" name="user_id" value='<?= $_SESSION['id'] ?>'>
+                    <input type='hidden' id="restaurant_id" name="restaurant_id" value=<?= $list['id'] ?>>
+                    <button class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
+                </form>
+            <?php } ?>
+
+            <form action='templates/details.phtml' method="POST">
+                <input type='hidden' id="restaurant_id" name="restaurant_id" value=<?= $list['id'] ?>>
+                <button class="btn">En savoir plus</button>
+            </form>
+        </article>
+<?php
     }
+} else {
+    header("Location: index.php?route=list_resto");
+}
 ?>
