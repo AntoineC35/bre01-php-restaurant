@@ -12,4 +12,65 @@ $db = new PDO(
     $user,
     $password
 );
+?>
 
+<?php
+
+$_SESSION['user'] = array(
+  'username' => 'user',
+  'password' => 'password',
+);
+
+
+// Démarre la session
+session_start(); 
+
+// vérifier si l'utilisateur est déja connecté
+if (isset($_SESSION['user'])) {
+  header("location: user_connected.phtml");
+}
+
+// Vérifie si le formulaire de connexion a été soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $username = $_POST['username'];
+  $password = $_POST['pasword'];
+  
+  if($username === 'user' && $password === 'password') {
+    $_SESSION['user'] = $usename;
+    header("location: user_connected.phtml");
+    exit ();
+  }
+  else{
+    $error = "Identifiants incorects";
+  }
+}
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   <div class="container">
+        <h1>Connexion</h1>
+        <form id="loginForm" action="login.php" method="post">
+            <label for="username">Nom d'utilisateur:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Se connecter</button>
+        </form>
+        <form>
+        <button type="submit" onclick="location.href='../templates/inscription.phtml'">Vous n'êtes pas encore inscrit ?</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vous êtes connecté-e</title>
+</head>
+<body>
+    <h1>Vous êtes connecté-e</h1>
+
+    <p>Bienvenue, <?php echo $_SESSION['user']; ?>!</p>
+
+    <form method="post" action="deconnection.php">
+        <button type="submit">Se déconnecter</button>
+    </form>
+</body>
+</html>

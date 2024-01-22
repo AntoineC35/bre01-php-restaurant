@@ -13,3 +13,5 @@ $db = new PDO(
     $password
 );
 
+?>
+
