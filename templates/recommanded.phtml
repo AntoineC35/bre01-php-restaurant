@@ -1,0 +1,20 @@
+<?php 
+
+$query = $db->prepare("SELECT * FROM restaurants 
+                        JOIN recommanded ON id = restaurant_id 
+                        JOIN users ON id = user_id WHERE user_id = :id");
+$parameters = [ 'id' => $_SESSION["id"] ];
+$query->execute($parameters);
+$recommanded = $query->fetchAll(PDO::FETCH_ASSOC);
+var_dump($recommanded);
+?>
+
+<?php foreach($recommanded as $recommand){ ?>
+    <article>
+        <h3><?= $recommand["name"] ?></h3>
+        <p> <?= $recommand["categorie"] ?></p>
+        <p> <?= $recommand["location"] ?> </p>
+        <img src=" <?= $recommand["photo"] ?> " alt="photo <?= $recommand["name"] ?>"/>
+        <button type=submit> Détail </button>
+    </article>
+<?php } ?>

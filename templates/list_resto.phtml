@@ -1,0 +1,36 @@
+<?php 
+$query = $db->prepare("SELECT * FROM restaurants");
+//$parameters = []
+$query->execute(/*$parameters*/);
+$listResto = $query->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<?php 
+
+$query = $db->prepare("SELECT * FROM restaurants 
+                        JOIN recommanded ON id = restaurant_id 
+                        JOIN users ON id = user_id WHERE user_id = :id");
+$parameters = [ 'id' => $_SESSION["id"] ];
+$query->execute($parameters);
+$recommanded = $query->fetchAll(PDO::FETCH_ASSOC);
+var_dump($recommanded);
+?>
+
+<?php foreach($listeResto as $list){ ?>
+    <article>
+        <h3><?= $list["name"] ?></h3>
+        <p> <?= $list["categorie"] ?></p>
+        <p> <?= $list["location"] ?> </p>
+        <img src=" <?= $list["photo"] ?> " alt="photo <?= $list["name"] ?>"/>
+        <?php 
+        foreach($recommanded as $recommand){
+            if($list["id"] === $recommand['id']) {
+                echo "<p>like</p>";
+            } else {
+                echo"<p> dislike</p>";
+            };
+        };
+        ?>
+        <button type=submit> Détail </button>
+    </article>
+<?php } ?>
